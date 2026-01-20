@@ -7,21 +7,22 @@
 class Multimedia{
 public:
     Multimedia();
-    Multimedia(const std::string& name,const std::string& path);
+    Multimedia(const std::string& name,const std::string& pathname);
 
     virtual ~Multimedia();
 
     virtual void display(std::ostream& os) const;
+    virtual void play(int platform) const = 0;
 
     void setName(const std::string& name);
     std::string getName() const;
 
-    void setPath(const std::string& path);
-    std::string getPath() const;
+    void setPathName(const std::string& pathname);
+    std::string getPathName() const;
 
-private:
+protected:
     std::string name = "";
-    std::string path = "";
+    std::string pathname = "";
 
 };
 

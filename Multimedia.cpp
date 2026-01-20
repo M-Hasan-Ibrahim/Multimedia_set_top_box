@@ -2,17 +2,17 @@
 
 Multimedia::Multimedia(){
     this->name = "No Name";
-    this->path = "No Path Specified";
+    this->pathname = "No Path Specified";
 }
 
-Multimedia::Multimedia(const std::string& name, const std::string& path){
+Multimedia::Multimedia(const std::string& name, const std::string& pathname){
     this->name = name;
-    this->path = path;
+    this->pathname = pathname;
 }
 
 void Multimedia::display(std::ostream& os) const{
     os << "Name: " << this->name << std::endl;
-    os << "Path: " << this->path << std::endl;
+    os << "Path: " << this->pathname << std::endl;
 }
 
 void Multimedia::setName(const std::string& name){
@@ -23,17 +23,17 @@ std::string Multimedia::getName() const{
     return this->name;
 }
 
-void Multimedia::setPath(const std::string& path){
-    this->path = path;
+void Multimedia::setPathName(const std::string& pathname){
+    this->pathname = pathname;
 }
 
-std::string Multimedia::getPath() const{
-    return this->path;
+std::string Multimedia::getPathName() const{
+    return this->pathname;
 }
 
 
 
 
 Multimedia::~Multimedia(){
-    std::cout << "object terminated" << std::endl;
+
 }
