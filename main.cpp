@@ -6,14 +6,15 @@
 #include "Photo.h"
 #include "Video.h"
 
+#include "Film.h"
+
 #include <memory>
 #include <vector>
 
 #include <iostream>
 using namespace std;
 
-int main(int argc, const char* argv[])
-{
+void photoVideoTest(){
     int platform;
     std::cout << "Platform (1=Windows, 2=Linux, 3=WSL): ";
     std::cin >> platform;
@@ -27,6 +28,30 @@ int main(int argc, const char* argv[])
         obj->play(platform);
         std::cout << "----\n";
     }
+}
+
+void filmTest(){
+    int* a = new int[3]{10, 20, 30};
+
+    Film f("film1", "assets/video.mp4", 120, a, 3);
+    
+    std::cout << "display 1:\n";
+    f.display(std::cout);
+    
+    delete[] a;
+    a = new int[3]{1, 1, 1};
+
+    std::cout << "display 2:\n";
+    f.display(std::cout);
+
+    f.play(3);
+
+    delete[] a;
+}
+
+int main(int argc, const char* argv[])
+{
+    filmTest();   
 
 
     return 0;
