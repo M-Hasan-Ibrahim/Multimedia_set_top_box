@@ -11,8 +11,8 @@ Multimedia::Multimedia(const std::string& name, const std::string& path){
 }
 
 void Multimedia::display(std::ostream& os) const{
-    os << "Name: " << name << std::endl;
-    os << "Path: " << pathname << std::endl;
+    os << "Name: " << this->name << std::endl;
+    os << "Path: " << this->path << std::endl;
 }
 
 void Multimedia::setName(const std::string& name){
@@ -34,6 +34,6 @@ std::string Multimedia::getPath() const{
 
 
 
-virtual Multimedia::~Multimedia(){
+Multimedia::~Multimedia(){
     std::cout << "object terminated" << std::endl;
 }

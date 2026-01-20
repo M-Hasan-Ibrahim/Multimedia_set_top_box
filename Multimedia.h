@@ -23,7 +23,7 @@ private:
     std::string name = "";
     std::string path = "";
 
-}
+};
 
 
 #endif
