@@ -1,0 +1,2 @@
+MyClass.o: MyClass.cpp
+main.o: main.cpp
