@@ -9,7 +9,7 @@
 class Film : public Video{
 public:
     Film() = default;
-    Film(const std::string& name, const std::string& pathname, int duration, int* chapters, int chapterCount) : Video(name, pathname, duration) {
+    Film(const std::string& name, const std::string& pathname, int duration, const int* chapters, int chapterCount) : Video(name, pathname, duration) {
         setChapters(chapters, chapterCount);
     } 
 
@@ -19,6 +19,7 @@ public:
 
     Film& operator=(const Film& other) {
         if (this == &other) return *this;
+        Video::operator=(other);
         setChapters(other.chapters, other.chapterCount);
         return *this;
     }
@@ -40,7 +41,11 @@ public:
         } 
     }
 
-    const int* getChapters() const { return chapters; }
+    void getChapters(const int*& out, int& outCount) const {
+        out = chapters;
+        outCount = chapterCount;
+    }
+
     int getChapterCount() const { return chapterCount; }
 
     void display(std::ostream& os) const override {

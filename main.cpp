@@ -3,10 +3,12 @@
 // Created on 21/10/2018
 //
 #include "Multimedia.h"
+
 #include "Photo.h"
 #include "Video.h"
-
 #include "Film.h"
+#include "Group.h"
+
 
 #include <memory>
 #include <vector>
@@ -49,9 +51,30 @@ void filmTest(){
     delete[] a;
 }
 
+void groupTest() {
+    auto p1 = std::make_shared<Photo>("p1", "assets/photo.png", 1, 2);
+    auto v1 = std::make_shared<Video>("v1", "assets/video.mp4", 120);
+
+    int ch[] = {10,20,30};
+    auto f1 = std::make_shared<Film>("film1", "assets/video.mp4", 120, ch, 3);
+
+    Group gA("First Group");
+    Group gB("Second Group");
+
+    gA.push_back(p1);
+    gA.push_back(f1);
+
+    gB.push_back(v1);
+    gB.push_back(f1);
+
+    gA.display(std::cout);
+    gB.display(std::cout);
+}
+
+
 int main(int argc, const char* argv[])
 {
-    filmTest();   
+    groupTest();   
 
 
     return 0;

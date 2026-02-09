@@ -9,7 +9,7 @@ public:
     Multimedia();
     Multimedia(const std::string& name,const std::string& pathname);
 
-    virtual ~Multimedia();
+    virtual ~Multimedia() = default;
 
     virtual void display(std::ostream& os) const;
     virtual void play(int platform) const = 0;

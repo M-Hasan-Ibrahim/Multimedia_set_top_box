@@ -30,10 +30,3 @@ void Multimedia::setPathName(const std::string& pathname){
 std::string Multimedia::getPathName() const{
     return this->pathname;
 }
-
-
-
-
-Multimedia::~Multimedia(){
-
-}
