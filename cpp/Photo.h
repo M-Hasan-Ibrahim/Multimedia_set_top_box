@@ -54,6 +54,22 @@ public:
         this->longitude = longitude;
     }
 
+    std::string className() const override { return "Photo"; }
+
+    void write(std::ostream& os) const override {
+        Multimedia::write(os);
+        os << latitude << "\n";
+        os << longitude << "\n";
+    }
+
+    void read(std::istream& is) override {
+        Multimedia::read(is);
+        std::string line;
+        std::getline(is, line); latitude = std::stod(line);
+        std::getline(is, line); longitude = std::stod(line);
+    }
+
+
 
 private:
     Photo(const std::string& name, const std::string& pathname, double latitude, double longitude)

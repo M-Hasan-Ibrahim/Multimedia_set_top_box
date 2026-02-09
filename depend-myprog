@@ -1,0 +1,3 @@
+Multimedia.o: cpp/Multimedia.cpp cpp/Multimedia.h
+main.o: cpp/main.cpp cpp/Multimedia.h cpp/Photo.h cpp/Video.h cpp/Film.h \
+ cpp/Group.h cpp/MultimediaManager.h

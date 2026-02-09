@@ -47,6 +47,20 @@ public:
         this->duration = duration;
     }
 
+    std::string className() const override { return "Video"; }
+
+    void write(std::ostream& os) const override {
+        Multimedia::write(os);
+        os << duration << "\n";
+    }
+
+    void read(std::istream& is) override {
+        Multimedia::read(is);
+        std::string line;
+        std::getline(is, line); duration = std::stoi(line);
+    }
+
+
 
 protected:
     Video(const std::string& name, const std::string& pathname, int duration) : Multimedia(name, pathname), duration(duration){}

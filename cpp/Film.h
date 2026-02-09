@@ -64,6 +64,32 @@ public:
         os << "\n";
     }
 
+    std::string className() const override { return "Film"; }
+
+    void write(std::ostream& os) const override {
+        Video::write(os);
+        os << chapterCount << "\n";
+        for (int i = 0; i < chapterCount; ++i) os << chapters[i] << "\n";
+    }
+
+    void read(std::istream& is) override {
+        Video::read(is);
+
+        std::string line;
+        std::getline(is, line);
+        int n = std::stoi(line);
+
+        clearChapters();
+        if (n <= 0) return;
+        chapterCount = n;
+        chapters = new int[chapterCount];
+        for (int i = 0; i < chapterCount; ++i) {
+            std::getline(is, line);
+            chapters[i] = std::stoi(line);
+        }
+    }
+
+
 private:
     Film(const std::string& name, const std::string& pathname, int duration, const int* chapters, int chapterCount) : Video(name, pathname, duration) {
         setChapters(chapters, chapterCount);

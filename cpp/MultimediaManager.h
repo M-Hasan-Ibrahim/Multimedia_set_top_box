@@ -5,11 +5,19 @@
 #include <memory>
 #include <string>
 #include <iostream>
+#include <fstream>
+#include <sstream>
+#include <functional>
 
 #include "Photo.h"
 #include "Video.h"
 #include "Film.h"
 #include "Group.h"
+
+
+
+
+
 
 class MultimediaManager {
 public:
@@ -62,7 +70,6 @@ public:
         it->second->play(platform);
     }
 
-    // optional delete (additional question)
     void deleteMultimedia(const std::string& name) {
         auto it = multimediaTable.find(name);
         if (it == multimediaTable.end()) return;
@@ -75,6 +82,48 @@ public:
     void deleteGroup(const std::string& name) {
         groupTable.erase(name);
     }
+
+    bool saveMultimediaTable(const std::string& filename) const {
+        std::ofstream ofs(filename);
+        if (!ofs) return false;
+
+        ofs << multimediaTable.size() << "\n";
+        for (const auto& kv : multimediaTable) {
+            const auto& obj = kv.second;
+            ofs << obj->className() << "\n";
+            obj->write(ofs);
+        }
+        return true;
+    }
+
+    bool loadMultimediaTable(const std::string& filename) {
+        std::ifstream ifs(filename);
+        if (!ifs) return false;
+
+        multimediaTable.clear();
+
+        std::string line;
+        std::getline(ifs, line);
+        int count = std::stoi(line);
+
+        
+        for (int i = 0; i < count; ++i) {
+            std::string cls;
+            std::getline(ifs, cls);
+
+            std::shared_ptr<Multimedia> obj;
+
+            if (cls == "Photo") obj = std::shared_ptr<Photo>(new Photo());
+            else if (cls == "Video") obj = std::shared_ptr<Video>(new Video());
+            else if (cls == "Film") obj = std::shared_ptr<Film>(new Film());
+            else return false;
+
+            obj->read(ifs);
+            multimediaTable[obj->getName()] = obj;
+        }
+        return true;
+    }
+
 
 private:
     std::map<std::string, MultimediaPtr> multimediaTable;

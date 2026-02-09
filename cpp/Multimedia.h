@@ -11,6 +11,8 @@ public:
 
     virtual ~Multimedia() = default;
 
+    virtual std::string className() const = 0;
+
     virtual void display(std::ostream& os) const;
     virtual void play(int platform) const = 0;
 
@@ -19,6 +21,16 @@ public:
 
     void setPathName(const std::string& pathname);
     std::string getPathName() const;
+
+    virtual void write(std::ostream& os) const {
+        os << name << "\n";
+        os << pathname << "\n";
+    }
+
+    virtual void read(std::istream& is) {
+        std::getline(is, name);
+        std::getline(is, pathname);
+    }
 
 protected:
     std::string name = "";

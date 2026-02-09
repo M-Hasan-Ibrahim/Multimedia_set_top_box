@@ -1,0 +1,6 @@
+server.o: server.cpp tcpserver.h ccsocket.h ../cpp/MultimediaManager.h \
+ ../cpp/Photo.h ../cpp/Multimedia.h ../cpp/Video.h ../cpp/Film.h \
+ ../cpp/Group.h
+tcpserver.o: tcpserver.cpp tcpserver.h ccsocket.h
+ccsocket.o: ccsocket.cpp ccsocket.h
+Multimedia.o: ../cpp/Multimedia.cpp ../cpp/Multimedia.h

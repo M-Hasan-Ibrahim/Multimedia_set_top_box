@@ -17,7 +17,9 @@ CLISERV=cliserv
 # Fichiers sources (NE PAS METTRE les .h ni les .o mais seulement les .cpp)
 #
 CLIENT_SOURCES=client.cpp ccsocket.cpp 
-SERVER_SOURCES=server.cpp tcpserver.cpp ccsocket.cpp 
+
+SERVER_SOURCES=server.cpp tcpserver.cpp ccsocket.cpp ../cpp/Multimedia.cpp 
+
 CLISERV_SOURCES=client.cpp server.cpp tcpserver.cpp ccsocket.cpp Makefile-cliserv
 #
 # Fichiers objets (ne pas modifier, sauf si l'extension n'est pas .cpp)
@@ -36,7 +38,7 @@ CXX= c++
 #   -std=c++11 pour C++11
 # Example: CXXFLAGS= -std=c++11 -Wall -O -I/usr/local/qt/include
 #
-CXXFLAGS= -std=c++11 -Wall -g
+CXXFLAGS= -std=c++11 -Wall -g -I../cpp
 
 #
 # Options de l'editeur de liens
@@ -71,7 +73,7 @@ ${SERVER}: depend-${SERVER} ${SERVER_OBJETS}
 	${CXX} -o $@ ${CXXFLAGS} ${LDFLAGS} ${SERVER_OBJETS} ${LDLIBS}
 
 clean:
-	-@$(RM) *.o depend-${CLIENT} depend-${SERVER} core 1>/dev/null 2>&1
+	-@$(RM) *.o ../cpp/*.o depend-${CLIENT} depend-${SERVER} core 1>/dev/null 2>&1
 
 clean-all: clean
 	-@$(RM) -${CLIENT} -${SERVER} 1>/dev/null 2>&1
