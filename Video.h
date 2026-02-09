@@ -4,11 +4,15 @@
 #include "Multimedia.h"
 #include <cstdlib>
 
+class MultimediaManager;
+
 class Video : public Multimedia{
+    friend class MultimediaManager;
+    
 public:
     Video() = default;
 
-    Video(const std::string& name, const std::string& pathname, int duration) : Multimedia(name, pathname), duration(duration){}
+    // Video(const std::string& name, const std::string& pathname, int duration) : Multimedia(name, pathname), duration(duration){}
 
     ~Video() override{
         std::cout << "video: " << this->name << " destructed\n";
@@ -43,7 +47,13 @@ public:
         this->duration = duration;
     }
 
+
+protected:
+    Video(const std::string& name, const std::string& pathname, int duration) : Multimedia(name, pathname), duration(duration){}
+
+
 private:
+
     int duration = 0;
 };
 

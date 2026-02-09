@@ -9,12 +9,16 @@
 
 using MultimediaPtr = std::shared_ptr<Multimedia>;
 
+class MultimediaManager;
+
 class Group : public std::list<MultimediaPtr> {
+    friend class MultimediaManager;
 private:
+    Group(const std::string& name) : name(name) {}
     std::string name;
 
 public:
-    Group(const std::string& name) : name(name) {}
+    // Group(const std::string& name) : name(name) {}
 
     const std::string& getName() const { return name; }
 

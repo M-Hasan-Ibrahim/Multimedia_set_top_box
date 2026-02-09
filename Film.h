@@ -5,13 +5,13 @@
 #include <iostream>
 #include <string>
 
+class MultimediaManager;
 
 class Film : public Video{
+    friend class MultimediaManager;
 public:
     Film() = default;
-    Film(const std::string& name, const std::string& pathname, int duration, const int* chapters, int chapterCount) : Video(name, pathname, duration) {
-        setChapters(chapters, chapterCount);
-    } 
+
 
     Film(const Film& other) : Video(other) {
         setChapters(other.chapters, other.chapterCount);
@@ -24,9 +24,11 @@ public:
         return *this;
     }
 
-    ~Film() override {
-        delete[] chapters;
+    ~Film() override { 
+        std::cout << "film: " << name << " destructed\n";
+        delete[] chapters; 
     }
+
 
     void setChapters(const int* chapterDurations, int count){
         clearChapters();
@@ -63,6 +65,9 @@ public:
     }
 
 private:
+    Film(const std::string& name, const std::string& pathname, int duration, const int* chapters, int chapterCount) : Video(name, pathname, duration) {
+        setChapters(chapters, chapterCount);
+    } 
     int* chapters = nullptr;
     int chapterCount = 0;
 

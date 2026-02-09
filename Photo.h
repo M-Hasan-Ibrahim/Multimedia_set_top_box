@@ -4,12 +4,15 @@
 #include "Multimedia.h"
 #include <cstdlib>
 
+class MultimediaManager;
+
 class Photo : public Multimedia{
+    friend class MultimediaManager;
 public:
     Photo() = default;
 
-    Photo(const std::string& name, const std::string& pathname, double latitude, double longitude) 
-    : Multimedia(name, pathname), latitude(latitude), longitude(longitude){}
+    // Photo(const std::string& name, const std::string& pathname, double latitude, double longitude) 
+    // : Multimedia(name, pathname), latitude(latitude), longitude(longitude){}
 
     ~Photo() override{
         std::cout << "photo: " << this->name << " destructed\n";
@@ -53,6 +56,8 @@ public:
 
 
 private:
+    Photo(const std::string& name, const std::string& pathname, double latitude, double longitude)
+    : Multimedia(name, pathname), latitude(latitude), longitude(longitude) {}
     double latitude = 0.0;
     double longitude = 0.0;
 };
