@@ -11,7 +11,7 @@ public:
     Photo(const std::string& name, const std::string& pathname, double latitude, double longitude) 
     : Multimedia(name, pathname), latitude(latitude), longitude(longitude){}
 
-    virtual ~Photo(){
+    ~Photo() override{
         std::cout << "photo: " << this->name << " destructed\n";
     }
 

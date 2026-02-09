@@ -10,7 +10,7 @@ public:
 
     Video(const std::string& name, const std::string& pathname, int duration) : Multimedia(name, pathname), duration(duration){}
 
-    virtual ~Video(){
+    ~Video() override{
         std::cout << "video: " << this->name << " destructed\n";
     }
 

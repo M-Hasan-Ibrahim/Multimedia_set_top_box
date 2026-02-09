@@ -72,6 +72,33 @@ void groupTest() {
 }
 
 
+void step9Test() {
+    Group g1("G1"), g2("G2");
+
+    auto p = std::make_shared<Photo>("p1", "assets/photo.png", 1, 2);
+    auto v = std::make_shared<Video>("v1", "assets/video.mp4", 120);
+
+    g1.push_back(p);
+    g2.push_back(p); // same object in 2 groups
+    g1.push_back(v);
+
+    std::cout << "Remove p from g1 (should NOT die)\n";
+    g1.remove(p);
+
+    std::cout << "Remove p from g2 (still should NOT die, because p variable holds it)\n";
+    g2.remove(p);
+
+    std::cout << "Reset p (NOW it should die)\n";
+    p.reset();
+
+    std::cout << "Clear g1 (v still not die because v variable holds it)\n";
+    g1.clear();
+
+    std::cout << "Reset v (NOW it should die)\n";
+    v.reset();
+}
+
+
 int main(int argc, const char* argv[])
 {
     groupTest();   
