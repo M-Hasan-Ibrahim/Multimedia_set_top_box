@@ -28,17 +28,17 @@ int main() {
   MultimediaManager manager;
 
   int ch[] = {10,20,30};
-  auto v1 = manager.createVideo("v1", "../assets/video.mp4", 120);
-  auto f1 = manager.createFilm("film1", "../assets/video.mp4", 120, ch, 3);
-  auto p1 = manager.createPhoto("p1", "../assets/photo.png", 1, 2);
+  auto video = manager.createVideo("video", "../assets/video.mp4", 120);
+  auto film = manager.createFilm("film", "../assets/video.mp4", 120, ch, 3);
+  auto photo = manager.createPhoto("photo", "../assets/photo.png", 1, 2);
 
-  auto g1 = manager.createGroup("FirstGroup");
-  g1->push_back(p1);
-  g1->push_back(f1);
+  auto group1 = manager.createGroup("group1");
+  group1->push_back(photo);
+  group1->push_back(film);
 
-  auto g2 = manager.createGroup("SecondGroup");
-  g2->push_back(p1);
-  g2->push_back(v1);
+  auto group2 = manager.createGroup("group2");
+  group2->push_back(photo);
+  group2->push_back(video);
 
   TCPServer server([&](std::string const& request, std::string& response) {
     try{
