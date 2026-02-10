@@ -51,6 +51,12 @@ int main() {
         return true;
       }
 
+      if (cmd == "available") {
+        response = "Multimedia: photo video film\nGroups: group1 group2";
+        nl_to_semicolon(response);
+        return true;
+      }
+
       if (cmd == "show") {
         std::string name; iss >> name;
         if (name.empty()) { response = "ERR: usage show <name>"; return true; }
@@ -82,6 +88,9 @@ int main() {
         response = "OK";
         return true;
       }
+
+
+
 
       if (cmd == "quit") { response = "OK"; return false; }
 
