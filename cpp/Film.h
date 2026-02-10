@@ -31,9 +31,11 @@ public:
 
 
     void setChapters(const int* chapterDurations, int count){
+
         clearChapters();
 
-        if (!chapterDurations || count <= 0) return;
+        if (count <= 0) throw std::runtime_error("Film chapters count must be > 0");
+        if (!chapterDurations) throw std::runtime_error("Film chapters pointer is null");
 
         chapterCount = count;
         chapters = new int[chapterCount];

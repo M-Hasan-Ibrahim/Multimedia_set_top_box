@@ -50,7 +50,17 @@ void testSerialization() {
 
 int main(int argc, const char* argv[])
 {
-    testSerialization();   
+
+    try {
+        MultimediaManager m;
+        m.createPhoto("p1", "assets/photo.png", 1, 2);
+        m.createPhoto("p1", "assets/photo2.png", 1, 2); // duplicate -> throws
+    } catch (const std::exception& e) {
+        std::cout << "Caught: " << e.what() << "\n";
+    }
+
+    MultimediaManager m2;
+    std::cout << std::boolalpha << m2.deleteMultimedia("doesNotExist") << "\n"; // false
 
 
     return 0;

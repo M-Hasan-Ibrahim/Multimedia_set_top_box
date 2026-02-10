@@ -8,6 +8,8 @@
 #include <fstream>
 #include <sstream>
 #include <functional>
+#include <stdexcept>
+#include <cctype>
 
 #include "Photo.h"
 #include "Video.h"
@@ -28,12 +30,24 @@ public:
     using GroupPtr = std::shared_ptr<Group>;
 
     PhotoPtr createPhoto(const std::string& name, const std::string& path, double lat, double lon) {
+        if (!isValidName(name))
+            throw std::runtime_error("Invalid name: " + name);
+
+        if (multimediaTable.find(name) != multimediaTable.end())
+            throw std::runtime_error("Multimedia already exists: " + name);
+
         auto p = PhotoPtr(new Photo(name, path, lat, lon));
         multimediaTable[name] = p;
         return p;
     }
 
     VideoPtr createVideo(const std::string& name, const std::string& path, int duration) {
+        if (!isValidName(name))
+            throw std::runtime_error("Invalid name: " + name);
+
+        if (multimediaTable.find(name) != multimediaTable.end())
+            throw std::runtime_error("Multimedia already exists: " + name);
+        
         auto v = VideoPtr(new Video(name, path, duration));
         multimediaTable[name] = v;
         return v;
@@ -41,12 +55,24 @@ public:
 
     FilmPtr createFilm(const std::string& name, const std::string& path, int duration,
                        const int* chapters, int chapterCount) {
+        if (!isValidName(name))
+            throw std::runtime_error("Invalid name: " + name);
+
+        if (multimediaTable.find(name) != multimediaTable.end())
+            throw std::runtime_error("Multimedia already exists: " + name);
+        
         auto f = FilmPtr(new Film(name, path, duration, chapters, chapterCount));
         multimediaTable[name] = f;
         return f;
     }
 
     GroupPtr createGroup(const std::string& name) {
+        if (!isValidName(name))
+            throw std::runtime_error("Invalid name: " + name);
+
+        if (groupTable.find(name) != groupTable.end())
+            throw std::runtime_error("Group already exists: " + name);
+
         auto g = GroupPtr(new Group(name));
         groupTable[name] = g;
         return g;
@@ -64,24 +90,28 @@ public:
         it->second->display(os);
     }
 
-    void playMultimedia(const std::string& name, int platform) const {
+    bool playMultimedia(const std::string& name, int platform) const {
         auto it = multimediaTable.find(name);
-        if (it == multimediaTable.end()) { std::cerr << "Multimedia not found: " << name << "\n"; return; }
+        if (it == multimediaTable.end()) return false;
         it->second->play(platform);
+        return true;
     }
 
-    void deleteMultimedia(const std::string& name) {
-        auto it = multimediaTable.find(name);
-        if (it == multimediaTable.end()) return;
 
+    bool deleteMultimedia(const std::string& name) {
+        auto it = multimediaTable.find(name);
+        if (it == multimediaTable.end()) return false; // nothing to do
         auto target = it->second;
         for (auto& kv : groupTable) kv.second->remove(target);
         multimediaTable.erase(it);
+        return true;
     }
 
-    void deleteGroup(const std::string& name) {
-        groupTable.erase(name);
+
+    bool deleteGroup(const std::string& name) {
+        return groupTable.erase(name) > 0;
     }
+
 
     bool saveMultimediaTable(const std::string& filename) const {
         std::ofstream ofs(filename);
@@ -123,6 +153,15 @@ public:
         }
         return true;
     }
+
+    static bool isValidName(const std::string& s) {
+        if (s.empty()) return false;
+        for (unsigned char c : s) {
+            if (!(std::isalnum(c) || c=='_' || c=='-' )) return false; // simple rule
+        }
+        return true;
+    }
+
 
 
 private:
