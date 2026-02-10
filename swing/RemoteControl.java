@@ -52,6 +52,13 @@ public class RemoteControl extends JFrame {
         }
     };
 
+    private final Action availableAction = new AbstractAction("ShowAvailable") {
+        @Override public void actionPerformed(java.awt.event.ActionEvent e) {
+            sendAsync("available");
+        }
+    };
+
+
     private final Action quitAction = new AbstractAction("Quit") {
         @Override public void actionPerformed(java.awt.event.ActionEvent e) {
             System.exit(0);
@@ -105,6 +112,7 @@ public class RemoteControl extends JFrame {
         row2.add(groupField);
         row2.add(new JButton(showgAction));
         row2.add(new JButton(helpAction));
+        row2.add(new JButton(availableAction));
         row2.add(new JButton(quitAction));
         root.add(row2);
 
@@ -120,6 +128,7 @@ public class RemoteControl extends JFrame {
         tb.add(playAction);
         tb.addSeparator();
         tb.add(helpAction);
+        tb.add(availableAction);
         tb.addSeparator();
         tb.add(quitAction);
         return tb;
@@ -132,6 +141,7 @@ public class RemoteControl extends JFrame {
         server.add(new JMenuItem(connectAction));
         server.addSeparator();
         server.add(new JMenuItem(helpAction));
+        server.add(new JMenuItem(availableAction));
         server.add(new JMenuItem(showAction));
         server.add(new JMenuItem(showgAction));
         server.add(new JMenuItem(playAction));
